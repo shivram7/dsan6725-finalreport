@@ -7,6 +7,7 @@ As data continues to grow in volume and complexity, it is becoming an increasing
 Our approach is to leverage the use of Generative AI to automate schema inference, serialization, and data transformation. Some of the key techniques include AI Agents/Multi-agent systems,  Prompt Engineering, data pipelines, Pydantic, and much more. More specifically, the project uses an LLM within a multi-agent system agent to extract schemas from JSON, CSV, XML, duplicates, nested structures, and missing values, as well as standardize data. Pydantic is used for serialization and data validation to ensure data consistency prior to transformation. Our goal is to go beyond what can be done with normal data engineering by leveraging the abilities of generative AI both in terms of speed and complexity with a simple agent.
 
 
+
 ## Introduction
 
 One of the longest tasks when it comes to being a data scientist is data engineering. Whether you’re doing machine learning, deep learning, data visualization, or even building applied generative AI models, data engineering is a crucial and time-consuming step in this process. This project involves designing a fully automated multi-agent system capable of detecting data formats, inferring schemas, generating code, validating and transforming data, and storing results.
