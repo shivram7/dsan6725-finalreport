@@ -37,7 +37,7 @@ To evaluate the system, we will check how well the agent identifies the file typ
 
 ## Data Source and Preparation
 
-An agent will use LLMs (e.g., Claude, Amazon Nova) to generate data sources and structure them in various formats, including CSV, JSON, XML, Parquet, Avro, and YAML.These data sources will be stored in AWS S3. Since synthetic data offers controlled variability, we will design prompts that introduce inconsistencies such as missing fields, inconsistent column names, schema variations, and data type mismatches. This will simulate real world datasets. Another agent will perform data preprocessing, which will include handling missing values and standardizing column names (cleaning), generating contextually accurate samples to fill gaps (augmentation),  and converting data into proper formats for consistency (transformation). This agent will ensure that the previously generated synthetic datasets reflect real world data sets. Using synthetic data can achieve controlled and reproducible results. We can customize schemas and formats, making them ideal for testing our system. 
+An agent will use LLMs (e.g., Claude, Amazon Nova) to generate data sources and structure them in various formats, including CSV, JSON, XML, Parquet, and YAML.These data sources will be stored in AWS S3. Since synthetic data offers controlled variability, we will design prompts that introduce inconsistencies such as missing fields, inconsistent column names, schema variations, and data type mismatches. This will simulate real world datasets. Another agent will perform data preprocessing, which will include handling missing values and standardizing column names (cleaning), generating contextually accurate samples to fill gaps (augmentation),  and converting data into proper formats for consistency (transformation). This agent will ensure that the previously generated synthetic datasets reflect real world data sets. Using synthetic data can achieve controlled and reproducible results. We can customize schemas and formats, making them ideal for testing our system. 
 Additionally we wanted to have some real world datasets in order to test if our system would work in a real world environment.
 
 The first dataset we chose has JSON, CSV, XML so we can test the consistency of our model with different types of data: Electric Vehicle Population Data - Catalog
@@ -47,7 +47,6 @@ Here are some datasets we used:
 * Parquet data: datasets/2015_flights.parquet at main · gu-dsan5200/datasets
 * JSON data: datasets/nfl-2018-week1.json at main · gu-dsan5200/datasets
 * CSV data: datasets/powerplants.csv at main · gu-dsan5200/datasets
-* AVRO: avro-cli-examples/twitter.avro at master · miguno/avro-cli-examples
 * XML Data: Stack Exchange Data Dump : Stack Exchange, Inc. : Free Download, Borrow, and Streaming : Internet Archive 
 
 We believe that these datasets along with the synthetic data we generated will be enough to test our system.
@@ -150,7 +149,7 @@ Ethical implications and model safety were also key considerations in tool devel
 
 Through the implementation of the GenAI Data Engineered Agent system, several key findings emerged that highlight both the potential and current limitations of applying LLM-based multi-agent frameworks to complex data engineering workflows. Overall, the project successfully demonstrated that file-type detection, schema inference, and data validation could be largely automated across a variety of formats, both synthetic and real-world. 
 
-However, several unexpected challenges surfaced. Handling Avro files proved particularly difficult. Unlike formats like CSV or JSON, Avro is a binary format requiring schema information to interpret correctly. Schema inference for Avro files could not rely on inspecting the raw file contents directly; specialized decoding steps were necessary before LLMs could reason about structure. Even with adjustments, occasional decoding errors or ambiguities in Avro schemas continued to pose challenges.
+However, several unexpected challenges surfaced. While attempting to include functionalities for Avro files, handling this data proved particularly difficult. Unlike formats like CSV or JSON, Avro is a binary format requiring schema information to interpret correctly. Schema inference for Avro files could not rely on inspecting the raw file contents directly; specialized decoding steps were necessary before LLMs could reason about structure. Even with adjustments, occasional decoding errors or ambiguities in Avro schemas continued to pose challenges. This would be a good addition to explore in the future.
 
 Evaluation presented another notable difficulty. Although many unit tests and validation rules were built to check for schema and data consistency, evaluating the quality of agent outputs was not always straightforward. We had to manually look through the generated and stored data for quality assessments. 
 
