@@ -44,7 +44,7 @@ The first dataset we chose has JSON, CSV, XML so we can test the consistency of 
 
 Here are some datasets we used: 
 
-Parquet data: datasets/2015_flights.parquet at main · gu-dsan5200/datasets
+* Parquet data: datasets/2015_flights.parquet at main · gu-dsan5200/datasets
 * JSON data: datasets/nfl-2018-week1.json at main · gu-dsan5200/datasets
 * CSV data: datasets/powerplants.csv at main · gu-dsan5200/datasets
 * AVRO: avro-cli-examples/twitter.avro at master · miguno/avro-cli-examples
