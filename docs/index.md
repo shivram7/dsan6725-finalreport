@@ -52,72 +52,70 @@ Here are some datasets we used:
 We believe that these datasets along with the synthetic data we generated will be enough to test our system.
 
 ## Agents
+##### **Overview**
+The GenAI Data Engineered Agent system was built primarily around a modular, multi-agent architecture, where each agent is responsible for a specific step of the data engineering workflow. Each agent follows the ReAct pattern — a framework where the agent can reason through complex multi-step tasks and decide when and how to call specialized tools to perform subtasks. All agents were implemented using LangChain on AWS Bedrock, leveraging foundation models for their reasoning and generation capabilities. Below, we describe each agent’s role, inner workings, architectural choices, and evaluation of effectiveness in detail.
 
 ##### **Agent 1: Data generation agent**
-Architecture: We created a ReAct agent with custom tools using create_react_agent from the langgraph module. This allows the agent to reason through multi-step tasks and invoke specific tools as needed based on user prompts.
+The Data Generation Agent is responsible for creating synthetic datasets in multiple formats (JSON, CSV, XML) based on user prompts. It is built as a ReAct agent using the `create_react_agent` function from the LangGraph module. The agent interacts with four tools: `generate_JSON`, `generate_CSV`, `generate_XML`, and `save_to_file`. Each tool is registered using the `@tool` decorator from LangChain, which enables the agent to invoke the appropriate function based on the prompt.
 
-Framework: We used LangChain via Bedrock.
+The architecture allows the agent to dynamically reason about the type of dataset the user requests and then select the correct data generation tool accordingly. For example, if a user prompts the system to "generate a medical dataset in JSON format," the agent will automatically call `generate_JSON`, passing the appropriate instructions to the underlying LLM to create realistic-looking data.
 
-Type: Tool-using agent
+After generating the content, the agent uses the `save_to_file` tool to write the data to disk, assigning the correct file extension based on the format. This workflow ensures that data generation and storage are tightly coupled, reducing the likelihood of file format mismatches or errors.
 
-Interaction: The agent uses `@tool` from LangChain’s tool function to call 4 tools: `generate_JSON`, `generate_CSV`, `generate_XML` (use Bedrock LLM to create data) and `save_to_file` (save data). 
-
-Evaluation of effectiveness: Each synthetic file was manually opened and inspected for data and schema integrity. Latency was (latencyMs) logged and used to detect how quickly the agent responds and completes the task. Files were correctly saved with proper file extensions (manually inspected). 
+The reason for building this agent was to support automated, on-demand data generation for testing and validation purposes, without requiring manual script creation. In the broader system, having access to realistic synthetic data is crucial for evaluating schema inference, validation, and file handling capabilities without relying solely on real-world datasets.
+Effectiveness was evaluated through manual inspection. After each file was generated, it was opened to verify schema integrity, realistic values, and correct formatting. Latency metrics were logged using Bedrock's response times to ensure the agent responded promptly and did not suffer from unreasonable delays.
 
 ##### **Agent 2: Format Detection and Scheme Inference Agent**
-Architecture: We used a reAct agent, which reasons and takes actions by calling tools in sequence.
+This agent’s core responsibility is to determine the file format of a given data file and infer its schema. Like Agent 1, it was built as a ReAct agent that can sequentially reason and act by invoking two custom tools: `detect_file_format` and `detect_schema`.
 
-Framework: We used LangChain via Bedrock
+Upon receiving a file path, the agent first calls `detect_file_format`, which inspects the file extension or contents to determine whether it is JSON, CSV, XML, etc. Once the format is identified, the agent proceeds to call `detect_schema`, which analyzes the file's structure and content to infer field names, types, and nested relationships.
 
-Type: Tool-using agent
+We chose a two-step design (first detect, then infer) rather than combining both into a single monolithic tool to allow finer-grained control and improve the explainability of each step. In production systems, decoupling detection from inference is important because format recognition failures can require different recovery paths compared to schema extraction errors.
 
-Interaction: The agent uses LangChain’s tool function to call 2 tools: `detect_file_format()` and `detect_schema()` when analyzing files.
-
-Metrics: We ran our test data through the agent and was able to confirm that it works as intended
+Effectiveness was evaluated by running a large sample of synthetic and real-world files through the agent. Correct file format detection and reasonable schema extraction were manually verified by comparing agent-inferred schemas against known ground truth schemas where available. 
 
 ##### **Agent 3: Pydantic/parquet agent**
-Architecture: We used a reAct agent, which reasons and takes actions by calling tools in sequence.
+The Pydantic/Parquet agent bridges the inferred schema to a standardized, storage-efficient output format — Apache Parquet. This agent reads JSON, CSV, or XML files, validates their structure using Pydantic models (auto-generated based on inferred schemas), and serializes the validated data into Parquet files.
 
-Framework: We used LangChain via Bedrock
+Architecturally, it follows the ReAct pattern again, with three tool endpoints registered: `json_to_parquet_with_pydantic`, `csv_to_parquet_with_pydantic`, and `xml_to_parquet_with_pydantic`. Depending on the file format, the agent chooses the appropriate tool, constructs a Pydantic model from the detected schema, validates the file content, and then writes it as a Parquet file.
 
-Type: Tool-using agent
+This design was motivated by two needs: (1) ensuring that the data conforms to a strict schema before storage, and (2) optimizing storage for scalability. Pydantic enforces type constraints and structure during validation, minimizing the risk of corrupted or semi-structured data entering the Parquet layer.
 
-Interaction: The agent uses LangChain’s tool function to call tools: `json_to_parquet_with_pydantic`, `csv_to_parquet_with_pydantic`, `xml_to_parquet_with_pydantic`
-
-Metrics: Manual inspection of parquet files. 
+Effectiveness was evaluated through manual inspection of the generated Parquet files using Parquet viewers and schema browsers. The structure and field types matched expectations across most test cases. Minor issues were observed when the incoming data had subtle inconsistencies not caught during schema inference, suggesting opportunities for future stricter validation rules.
 
 ##### **Agent 4: S3 file storage agent**
-Architecture: We used a react agent, which reasons and takes actions by calling tools in sequence.
+After generation, processing, and conversion, storing the final datasets securely is critical. The S3 File Storage Agent is tasked with uploading files to a configured AWS S3 bucket.
 
-Framework: We used LangChain via Bedrock
+It is built as a ReAct agent that calls a single tool: `upload_to_s3`. Upon receiving a file path, it securely uploads the file, handling retries and basic error checking.
 
-Type: Tool-using agent
+This agent was kept minimalistic to reduce complexity in storage. Storage is a relatively atomic operation, and error handling mainly concerns authentication errors, connection timeouts, or incorrect bucket policies.
 
-Interaction: The agent uses LangChain’s tool function to call tools: `upload_to_s3`
-
-Metrics: Manual inspection of file upload. 
+Effectiveness was evaluated by manually inspecting the S3 buckets to confirm that all uploaded files arrived intact, were named correctly, and were accessible with the appropriate permissions.
 
 ##### **Agent 5: Code generation agent**
-Architecture: We created a ReAct agent with custom tools using create_react_agent from the langgraph module. This allows the agent to reason through multi-step tasks and invoke specific tools as needed based on user prompts.
+This agent is responsible for generating Python code based on prompts related to data processing or schema handling tasks. For example, if a user prompts the system to "generate a Python class to validate user records," the agent generates appropriate file I/O and validation code.
 
-Framework: We used LangChain via Bedrock.
+The agent is created via the ReAct pattern, using the `save_generated_code` tool to write generated code to a Python file.
+We chose to separate code generation from code execution to improve system maintainability. Code generation and execution involve different risks: generation might produce syntactically incorrect or malicious code if unchecked, so manual inspection between these steps provides an important safety net.
 
-Type: Tool-using agent
-
-Interaction: The agent uses `@tool` from LangChain’s tool function to call the `save_generated_code` tool. This saves the python code generated by the agent. 
-
-Evaluation of effectiveness: Manual inspection of generated code, focusing on file I/O, validation, and data transformation classes.
+Effectiveness was evaluated manually by reviewing generated Python scripts for quality, correctness, and adherence to basic software engineering principles (e.g., modularity, comments, appropriate error handling).
 
 ##### **Agent 6: Code execution agent**
-Architecture: We created a ReAct agent with custom tools using create_react_agent from the langgraph module. This allows the agent to reason through multi-step tasks and invoke specific tools as needed based on user prompts.
+Finally, the Code Execution Agent executes the Python scripts generated by the previous agent. It uses a tool called `executed_generated_code` which internally runs the code through Python’s `exec()` function.
 
-Framework: We used LangChain via Bedrock.
+We designed this agent separately to provide a checkpoint between code generation and execution. By isolating the execution phase, we could build additional validation layers or sandboxing in the future to improve security.
 
-Type: Tool-using agent
+Execution success or failure was monitored during tests, and error messages were logged when execution failed (e.g., due to missing imports, syntax errors, or file access issues).
 
-Interaction: The agent uses `@tool` from LangChain’s tool function to call `executed_generated_code`. The method `exec()` was used in the tool to execute the python code. 
+This architecture offered flexibility in validating whether generated data transformation scripts could work in practice.
 
-Evaluation of effectiveness: Execution success/failure monitored; errors logged when execution fails.
+##### **Summary**
+Each agent plays a specific role in a pipeline that moves from synthetic data generation all the way to secure storage and operational code. Collectively, the agents demonstrate how multi-agent, tool-using architectures, driven by LLMs, can automate large portions of the data engineering lifecycle.
+The primary reasons behind using multiple specialized agents were:
+
+* Modularity: Each agent could be developed, tested, and improved independently.
+* Explainability: Each agent’s actions and reasoning could be traced separately.
+* Scalability: New formats, validation rules, or storage mechanisms can be added by simply creating new tools and agents.
 
 ## Models and Technologies Used
 
