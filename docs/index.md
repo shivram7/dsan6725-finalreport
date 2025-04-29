@@ -161,10 +161,15 @@ Overall, these findings validate the promise of LLM-driven multi-agent systems f
 
 #### Examples of Generated Data
 **schema.json**
+
 ![schema.json](schema.json.png)
+
 **date_pie_chart.png**
+
 ![date_pie_chart.png](date_pie_chart.png)
+
 **descriptive_stats.pdf**
+
 ![descriptive_stats.pdf](descriptive_stats.pdf.png)
 
 ## Conclusion and Future Work
