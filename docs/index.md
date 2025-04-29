@@ -155,9 +155,17 @@ Scalability challenges also emerged when applying the system to larger, real-wor
 Overall, these findings validate the promise of LLM-driven multi-agent systems for automating large portions of the data engineering lifecycle but also reveal to us areas where further sophistication is necessary for full production-grade deployment.
 
 
-## Demo 
+## Demo and Visuals
 
 [demo](https://drive.google.com/file/d/1ep8h2n3ZlRr4QEjaiMY8P4xUL_3LmPad/view?usp=sharing)
+
+#### Examples of Generated Data
+**schema.json**
+![schema.json](schema.json.png)
+**date_pie_chart.png**
+![date_pie_chart.png](date_pie_chart.png)
+**descriptive_stats.pdf**
+![descriptive_stats.pdf](descriptive_stats.pdf.png)
 
 ## Conclusion and Future Work
 
