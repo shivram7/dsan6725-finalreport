@@ -119,7 +119,7 @@ The primary reasons behind using multiple specialized agents were:
 
 ## Models and Technologies Used
 
-For our project, we used two models via the AWS Bedrock Converse API: Anthropic’s Claude 3.5 Haiku(`us.anthropic.claude-3-5-haiku-20241022-v1:0`) and Amazon’s Nova Micro (`us.amazon.nova-micro-v1:0`). These models were integrated into our system using LangChain's Bedrock connectors, which allowed us to easily manage LLM calls within our multi-agent architecture. We noticed that it takes 70-110 and 10,000-40,000 tokensdepending on the data source.
+For our project, we used two models via the AWS Bedrock Converse API: Anthropic’s Claude 3.5 Haiku(`us.anthropic.claude-3-5-haiku-20241022-v1:0`) and Amazon’s Nova Micro (`us.amazon.nova-micro-v1:0`). These models were integrated into our system using LangChain's Bedrock connectors, which allowed us to easily manage LLM calls within our multi-agent architecture. We noticed that it takes 70-110 seconds and 10,000-40,000 tokens depending on the data source.
 
 Claude 3.5 Haiku was used for the majority of tasks, including schema inference, file format detection, code generation, and reasoning steps. We selected Claude 3.5 Haiku because of its strong performance on structured reasoning, code generation, and multi-step tool use, which were essential for the more complex stages of our pipeline.
 
