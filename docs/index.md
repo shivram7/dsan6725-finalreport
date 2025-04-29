@@ -31,7 +31,7 @@ Now that we have code to complete our task we will need an agent to run this cod
 * Code generation agent
 * Code execution agent
 
-Now that we have finished the main tasks of our system, we wanted a good way to test the agents. Since real-world datasets can be sensitive or proprietary, our project partially uses artificially generated data to test the system. For this, we use LLMs to create data with formats such as CSV, JSON, XML, and Parquet. We also used some non-synthetic data to test our system on real-world examples, testing different formats of the same dataset to see if we achieve consistent results.
+Now that we have finished the main tasks of our system, we wanted a good way to test the agents. Since real-world datasets can be sensitive or proprietary, our project partially uses artificially generated data to test the system. For this, we use LLMs to create data with formats such as CSV, JSON, XML, and Parquet. We also used some non-synthetic data to test our system on real-world examples, testing different formats of the same dataset to see if we achieve consistent results. To show effectiveness we also monitored time and token usage as well.
 
 To evaluate the system, we will check how well the agent identifies the file type compared to the actual file type, if generated data is valid, how well the system performs on different datasets, and whether the system produces consistent results when given different versions of the same dataset. A lot of the evaluation was done by manually parsing generated files and data to check for quality, and unit tests to check validity of saved files and structures.
 
@@ -119,7 +119,7 @@ The primary reasons behind using multiple specialized agents were:
 
 ## Models and Technologies Used
 
-For our project, we used two models via the AWS Bedrock Converse API: Anthropic’s Claude 3.5 Haiku(`us.anthropic.claude-3-5-haiku-20241022-v1:0`) and Amazon’s Nova Micro (`us.amazon.nova-micro-v1:0`). These models were integrated into our system using LangChain's Bedrock connectors, which allowed us to easily manage LLM calls within our multi-agent architecture.
+For our project, we used two models via the AWS Bedrock Converse API: Anthropic’s Claude 3.5 Haiku(`us.anthropic.claude-3-5-haiku-20241022-v1:0`) and Amazon’s Nova Micro (`us.amazon.nova-micro-v1:0`). These models were integrated into our system using LangChain's Bedrock connectors, which allowed us to easily manage LLM calls within our multi-agent architecture. We noticed that it takes 70-110 and 10,000-40,000 tokensdepending on the data source.
 
 Claude 3.5 Haiku was used for the majority of tasks, including schema inference, file format detection, code generation, and reasoning steps. We selected Claude 3.5 Haiku because of its strong performance on structured reasoning, code generation, and multi-step tool use, which were essential for the more complex stages of our pipeline.
 
