@@ -1,0 +1,878 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://shivram7.github.io/dsan6725-finalreport/">
+      
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>AI Agents For Data Engineering</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#genai-agents-for-data-engineering-automating-schema-inference-and-format-conversion" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="AI Agents For Data Engineering" class="md-header__button md-logo" aria-label="AI Agents For Data Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Agents For Data Engineering
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GenAI Agents for Data Engineering: Automating Schema Inference and Format Conversion
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="AI Agents For Data Engineering" class="md-nav__button md-logo" aria-label="AI Agents For Data Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Agents For Data Engineering
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    GenAI Agents for Data Engineering: Automating Schema Inference and Format Conversion
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    GenAI Agents for Data Engineering: Automating Schema Inference and Format Conversion
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-source-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Source and Preparation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agents
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-1-data-generation-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 1: Data generation agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-2-format-detection-and-scheme-inference-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 2: Format Detection and Scheme Inference Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-3-pydanticparquet-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 3: Pydantic/parquet agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-4-s3-file-storage-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 4: S3 file storage agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-5-code-generation-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 5: Code generation agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-6-code-execution-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 6: Code execution agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models-and-technologies-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Models and Technologies Used
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools-and-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tools and Frameworks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-of-effectiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation of Effectiveness
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsible-ai-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Responsible AI Considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#findings-and-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Findings and Insights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-and-visuals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demo and Visuals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Demo and Visuals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-generated-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples of Generated Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-and-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion and Future Work
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-source-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Source and Preparation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agents
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-1-data-generation-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 1: Data generation agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-2-format-detection-and-scheme-inference-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 2: Format Detection and Scheme Inference Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-3-pydanticparquet-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 3: Pydantic/parquet agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-4-s3-file-storage-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 4: S3 file storage agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-5-code-generation-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 5: Code generation agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-6-code-execution-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 6: Code execution agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models-and-technologies-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Models and Technologies Used
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools-and-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tools and Frameworks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-of-effectiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation of Effectiveness
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsible-ai-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Responsible AI Considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#findings-and-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Findings and Insights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-and-visuals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demo and Visuals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Demo and Visuals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-generated-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples of Generated Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-and-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion and Future Work
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="genai-agents-for-data-engineering-automating-schema-inference-and-format-conversion">GenAI Agents for Data Engineering: Automating Schema Inference and Format Conversion</h1>
+<h4 id="abstract">Abstract</h4>
+<p>As data continues to grow in volume and complexity, it is becoming an increasingly challenging task to understand, clean, and organize it for analysis. Before any meaningful analysis or modeling can take place, it's essential to first detect the format, infer the schema, clean the data, and standardize it into a usable form. Traditionally, this has required manual intervention and custom pipelines for each data source which takes time and can be inconsistent. To address this challenge, we propose an automated multi-agent system designed to intelligently handle every stage of the data intake process.</p>
+<p>Our approach is to leverage the use of Generative AI to automate schema inference, serialization, and data transformation. Some of the key techniques include AI Agents/Multi-agent systems,  Prompt Engineering, data pipelines, Pydantic, and much more. More specifically, the project uses an LLM within a multi-agent system agent to extract schemas from JSON, CSV, XML, duplicates, nested structures, and missing values, as well as standardize data. Pydantic is used for serialization and data validation to ensure data consistency prior to transformation. Our goal is to go beyond what can be done with normal data engineering by leveraging the abilities of generative AI both in terms of speed and complexity with a simple agent.</p>
+<h2 id="introduction">Introduction</h2>
+<p>One of the longest tasks when it comes to being a data scientist is data engineering. Whether you’re doing machine learning, deep learning, data visualization, or even building applied generative AI models, data engineering is a crucial and time-consuming step in this process. This project involves designing a fully automated multi-agent system capable of detecting data formats, inferring schemas, generating code, validating and transforming data, and storing results.
+With the rapid advances in Generative AI, large language models (LLMs) have shown strong potential for automating complex tasks. This project explores how Generative AI can be applied not just to generate text, but to reason about data formats, write functional code, validate outputs, and automate a full data processing pipeline. This approach could significantly reduce the manual work required in traditional data engineering jobs, offering an adaptive system for handling different types of complex datasets. By using LLMs in a structured multi-agent framework, we demonstrate how generative models can move beyond traditional use cases to build entire systems capable of real impact.
+Some of our research questions include:</p>
+<ul>
+<li>How accurately can a multi-agent system detect file types and infer schemas compared to traditional methods?</li>
+<li>Can LLM-generated code successfully read, validate, and standardize diverse real-world and synthetic datasets?</li>
+<li>How does the system's performance vary across different dataset sizes and file formats?</li>
+</ul>
+<p>To begin addressing these questions, we have created an agent pipeline where each agent is initialized by wrapping specific tools and prompts. The architecture follows a ReAct agent pattern: the agent reasons about the task and selectively invokes tools.
+At a broad level, the agent needs to detect the types of data formats (JSON, CSV, XML, etc.). This is initially done by identifying the filename extension. We created tools and an agent (Schema Detection Agent - <code>detect_file_format</code>) for this purpose. To improve the accuracy of file type detection, at a more granular level, the agent needs to detect the format by inspecting the file content. This involves identifying features such as column names and datatypes in CSVs or the structural aspects of a JSON file. We created tools and an agent for this as well (Schema Detection Agent - <code>detect_schema</code>). 
+Now that our agent from the previous step has identified the type and structure of the data, another agent is used to generate code to read the files, transform and clean the data, and turn the data into a standardized format (Pydantic/Parquet Agent). This agent first uses the file type found from the previous step to write code to read in the dataset. The next step for our agent is to validate our data. The agent uses Pydantic to make sure that only valid data makes it through our system. (serialization/deserialization). Once our agent has only valid data, it turns the data into a Parquet file to ensure a consistent data format. Now that the data is in a standardized format an agent needs to transform and clean the data (Code Generation Agent). It does this by generating code depending on the type of data found in previous steps. An agent then saves the transformed and cleaned data, either locally or to AWS S3 depending on the file size (S3 Agent). Additionally, we use an organization system for saving files based on their original file type.</p>
+<p>Now that we have code to complete our task we will need an agent to run this code in order for our system to be a fully automated multi-agent system as intended. We will guide our multi-agent system to correctly run all code at the right steps. The agents in our system are as follows:</p>
+<ul>
+<li>Data generation agent</li>
+<li>Format detection and schema inference agent</li>
+<li>Pydantic/Parquet agent</li>
+<li>S3 file storage agent</li>
+<li>Code generation agent</li>
+<li>Code execution agent</li>
+</ul>
+<p>Now that we have finished the main tasks of our system, we wanted a good way to test the agents. Since real-world datasets can be sensitive or proprietary, our project partially uses artificially generated data to test the system. For this, we use LLMs to create data with formats such as CSV, JSON, XML, and Parquet. We also used some non-synthetic data to test our system on real-world examples, testing different formats of the same dataset to see if we achieve consistent results. To show effectiveness we also monitored time and token usage as well.</p>
+<p>To evaluate the system, we will check how well the agent identifies the file type compared to the actual file type, if generated data is valid, how well the system performs on different datasets, and whether the system produces consistent results when given different versions of the same dataset. A lot of the evaluation was done by manually parsing generated files and data to check for quality, and unit tests to check validity of saved files and structures.</p>
+<h2 id="data-source-and-preparation">Data Source and Preparation</h2>
+<p>An agent will use LLMs (e.g., Claude, Amazon Nova) to generate data sources and structure them in various formats, including CSV, JSON, XML, Parquet, and YAML.These data sources will be stored in AWS S3. Since synthetic data offers controlled variability, we will design prompts that introduce inconsistencies such as missing fields, inconsistent column names, schema variations, and data type mismatches. This will simulate real world datasets. Another agent will perform data preprocessing, which will include handling missing values and standardizing column names (cleaning), generating contextually accurate samples to fill gaps (augmentation),  and converting data into proper formats for consistency (transformation). This agent will ensure that the previously generated synthetic datasets reflect real world data sets. Using synthetic data can achieve controlled and reproducible results. We can customize schemas and formats, making them ideal for testing our system. 
+Additionally we wanted to have some real world datasets in order to test if our system would work in a real world environment.</p>
+<p>The first dataset we chose has JSON, CSV, XML so we can test the consistency of our model with different types of data: Electric Vehicle Population Data - Catalog</p>
+<p>Here are some datasets we used: </p>
+<ul>
+<li>Parquet data: datasets/2015_flights.parquet at main · gu-dsan5200/datasets</li>
+<li>JSON data: datasets/nfl-2018-week1.json at main · gu-dsan5200/datasets</li>
+<li>CSV data: datasets/powerplants.csv at main · gu-dsan5200/datasets</li>
+<li>XML Data: Stack Exchange Data Dump : Stack Exchange, Inc. : Free Download, Borrow, and Streaming : Internet Archive </li>
+</ul>
+<p>We believe that these datasets along with the synthetic data we generated will be enough to test our system.</p>
+<h2 id="agents">Agents</h2>
+<h5 id="overview"><strong>Overview</strong></h5>
+<p>The GenAI Data Engineered Agent system was built primarily around a modular, multi-agent architecture, where each agent is responsible for a specific step of the data engineering workflow. Each agent follows the ReAct pattern — a framework where the agent can reason through complex multi-step tasks and decide when and how to call specialized tools to perform subtasks. All agents were implemented using LangChain on AWS Bedrock, leveraging foundation models for their reasoning and generation capabilities. Below, we describe each agent’s role, inner workings, architectural choices, and evaluation of effectiveness in detail.</p>
+<h5 id="agent-1-data-generation-agent"><strong>Agent 1: Data generation agent</strong></h5>
+<p>The Data Generation Agent is responsible for creating synthetic datasets in multiple formats (JSON, CSV, XML) based on user prompts. It is built as a ReAct agent using the <code>create_react_agent</code> function from the LangGraph module. The agent interacts with four tools: <code>generate_JSON</code>, <code>generate_CSV</code>, <code>generate_XML</code>, and <code>save_to_file</code>. Each tool is registered using the <code>@tool</code> decorator from LangChain, which enables the agent to invoke the appropriate function based on the prompt.</p>
+<p>The architecture allows the agent to dynamically reason about the type of dataset the user requests and then select the correct data generation tool accordingly. For example, if a user prompts the system to "generate a medical dataset in JSON format," the agent will automatically call <code>generate_JSON</code>, passing the appropriate instructions to the underlying LLM to create realistic-looking data.</p>
+<p>After generating the content, the agent uses the <code>save_to_file</code> tool to write the data to disk, assigning the correct file extension based on the format. This workflow ensures that data generation and storage are tightly coupled, reducing the likelihood of file format mismatches or errors.</p>
+<p>The reason for building this agent was to support automated, on-demand data generation for testing and validation purposes, without requiring manual script creation. In the broader system, having access to realistic synthetic data is crucial for evaluating schema inference, validation, and file handling capabilities without relying solely on real-world datasets.
+Effectiveness was evaluated through manual inspection. After each file was generated, it was opened to verify schema integrity, realistic values, and correct formatting. Latency metrics were logged using Bedrock's response times to ensure the agent responded promptly and did not suffer from unreasonable delays.</p>
+<h5 id="agent-2-format-detection-and-scheme-inference-agent"><strong>Agent 2: Format Detection and Scheme Inference Agent</strong></h5>
+<p>This agent’s core responsibility is to determine the file format of a given data file and infer its schema. Like Agent 1, it was built as a ReAct agent that can sequentially reason and act by invoking two custom tools: <code>detect_file_format</code> and <code>detect_schema</code>.</p>
+<p>Upon receiving a file path, the agent first calls <code>detect_file_format</code>, which inspects the file extension or contents to determine whether it is JSON, CSV, XML, etc. Once the format is identified, the agent proceeds to call <code>detect_schema</code>, which analyzes the file's structure and content to infer field names, types, and nested relationships.</p>
+<p>We chose a two-step design (first detect, then infer) rather than combining both into a single monolithic tool to allow finer-grained control and improve the explainability of each step. In production systems, decoupling detection from inference is important because format recognition failures can require different recovery paths compared to schema extraction errors.</p>
+<p>Effectiveness was evaluated by running a large sample of synthetic and real-world files through the agent. Correct file format detection and reasonable schema extraction were manually verified by comparing agent-inferred schemas against known ground truth schemas where available. </p>
+<h5 id="agent-3-pydanticparquet-agent"><strong>Agent 3: Pydantic/parquet agent</strong></h5>
+<p>The Pydantic/Parquet agent bridges the inferred schema to a standardized, storage-efficient output format — Apache Parquet. This agent reads JSON, CSV, or XML files, validates their structure using Pydantic models (auto-generated based on inferred schemas), and serializes the validated data into Parquet files.</p>
+<p>Architecturally, it follows the ReAct pattern again, with three tool endpoints registered: <code>json_to_parquet_with_pydantic</code>, <code>csv_to_parquet_with_pydantic</code>, and <code>xml_to_parquet_with_pydantic</code>. Depending on the file format, the agent chooses the appropriate tool, constructs a Pydantic model from the detected schema, validates the file content, and then writes it as a Parquet file.</p>
+<p>This design was motivated by two needs: (1) ensuring that the data conforms to a strict schema before storage, and (2) optimizing storage for scalability. Pydantic enforces type constraints and structure during validation, minimizing the risk of corrupted or semi-structured data entering the Parquet layer.</p>
+<p>Effectiveness was evaluated through manual inspection of the generated Parquet files using Parquet viewers and schema browsers. The structure and field types matched expectations across most test cases. Minor issues were observed when the incoming data had subtle inconsistencies not caught during schema inference, suggesting opportunities for future stricter validation rules.</p>
+<h5 id="agent-4-s3-file-storage-agent"><strong>Agent 4: S3 file storage agent</strong></h5>
+<p>After generation, processing, and conversion, storing the final datasets securely is critical. The S3 File Storage Agent is tasked with uploading files to a configured AWS S3 bucket.</p>
+<p>It is built as a ReAct agent that calls a single tool: <code>upload_to_s3</code>. Upon receiving a file path, it securely uploads the file, handling retries and basic error checking.</p>
+<p>This agent was kept minimalistic to reduce complexity in storage. Storage is a relatively atomic operation, and error handling mainly concerns authentication errors, connection timeouts, or incorrect bucket policies.</p>
+<p>Effectiveness was evaluated by manually inspecting the S3 buckets to confirm that all uploaded files arrived intact, were named correctly, and were accessible with the appropriate permissions.</p>
+<h5 id="agent-5-code-generation-agent"><strong>Agent 5: Code generation agent</strong></h5>
+<p>This agent is responsible for generating Python code based on prompts related to data processing or schema handling tasks. For example, if a user prompts the system to "generate a Python class to validate user records," the agent generates appropriate file I/O and validation code.</p>
+<p>The agent is created via the ReAct pattern, using the <code>save_generated_code</code> tool to write generated code to a Python file.
+We chose to separate code generation from code execution to improve system maintainability. Code generation and execution involve different risks: generation might produce syntactically incorrect or malicious code if unchecked, so manual inspection between these steps provides an important safety net.</p>
+<p>Effectiveness was evaluated manually by reviewing generated Python scripts for quality, correctness, and adherence to basic software engineering principles (e.g., modularity, comments, appropriate error handling).</p>
+<h5 id="agent-6-code-execution-agent"><strong>Agent 6: Code execution agent</strong></h5>
+<p>Finally, the Code Execution Agent executes the Python scripts generated by the previous agent. It uses a tool called <code>executed_generated_code</code> which internally runs the code through Python’s <code>exec()</code> function.</p>
+<p>We designed this agent separately to provide a checkpoint between code generation and execution. By isolating the execution phase, we could build additional validation layers or sandboxing in the future to improve security.</p>
+<p>Execution success or failure was monitored during tests, and error messages were logged when execution failed (e.g., due to missing imports, syntax errors, or file access issues).</p>
+<p>This architecture offered flexibility in validating whether generated data transformation scripts could work in practice.</p>
+<h5 id="summary"><strong>Summary</strong></h5>
+<p>Each agent plays a specific role in a pipeline that moves from synthetic data generation all the way to secure storage and operational code. Collectively, the agents demonstrate how multi-agent, tool-using architectures, driven by LLMs, can automate large portions of the data engineering lifecycle.
+The primary reasons behind using multiple specialized agents were:</p>
+<ul>
+<li>Modularity: Each agent could be developed, tested, and improved independently.</li>
+<li>Explainability: Each agent’s actions and reasoning could be traced separately.</li>
+<li>Scalability: New formats, validation rules, or storage mechanisms can be added by simply creating new tools and agents.</li>
+</ul>
+<h2 id="models-and-technologies-used">Models and Technologies Used</h2>
+<p>For our project, we used two models via the AWS Bedrock Converse API: Anthropic’s Claude 3.5 Haiku(<code>us.anthropic.claude-3-5-haiku-20241022-v1:0</code>) and Amazon’s Nova Micro (<code>us.amazon.nova-micro-v1:0</code>). These models were integrated into our system using LangChain's Bedrock connectors, which allowed us to easily manage LLM calls within our multi-agent architecture. We noticed that it takes 70-110 seconds and 10,000-40,000 tokens depending on the data source.</p>
+<p>Claude 3.5 Haiku was used for the majority of tasks, including schema inference, file format detection, code generation, and reasoning steps. We selected Claude 3.5 Haiku because of its strong performance on structured reasoning, code generation, and multi-step tool use, which were essential for the more complex stages of our pipeline.</p>
+<p>Amazon’s Nova Micro model was used specifically for generating synthetic datasets. Nova Micro was a better fit for this task because of its faster generation times and lower cost, which made it more efficient for creating large volumes of synthetic CSV, JSON, and XML files.</p>
+<p>We did not perform any fine-tuning of the models. Instead, we just used the pre-trained versions of Claude 3.5 Haiku for most LLM calls and Nova Micro for synthetic data generation. Fine-tuning was not necessary because the models performed well out-of-the-box for our tasks, including schema inference, code generation, and synthetic data creation. Given the project scope and timeline, fine-tuning would have introduced overhead in terms of dataset preparation, training time, evaluation, and cost. We focused on prompt engineering and system design to adapt model behavior where needed. If future work requires more customization, fine-tuning could be explored.</p>
+<h2 id="tools-and-frameworks">Tools and Frameworks</h2>
+<p>We primarily used Python for development, along with libraries and frameworks including LangChain and LangGraph for orchestration and Pydantic for data validation and schema generation. For synthetic data generation and LLM-based schema inference, we accessed models through Amazon Bedrock, using Anthropic Claude 3.5 Haiku and Amazon Nova Micro models. Our application relied on cloud infrastructure provided by Amazon Bedrock for model access. We also integrated Amazon S3 for storing synthetic datasets and intermediate results. Version control was handled through Git and GitHub, with pull requests and code reviews integrated into our workflow. We maintained good project organization, although full CI/CD pipelines and production deployment were outside the scope of this prototype.</p>
+<h2 id="evaluation-of-effectiveness">Evaluation of Effectiveness</h2>
+<p>To evaluate the effectiveness of our system, we used both manual and automated methods. We manually reviewed the outputs generated by the models to ensure the quality and completeness of the data. This review process focused on verifying the presence of all required fields, the reasonableness of the generated values, and the correct storage of files in the expected formats (e.g., JSON, CSV). In addition to manual inspection, we implemented pytest-based test cases for each tool to automatically validate the structure and integrity of the generated and stored data. These tests checked for the file format/extension, presence of required fields, and verified data validity based on predefined criteria.</p>
+<p>Although we did not perform formal benchmarking against baseline models or use automatic metrics such as BLEU, ROUGE, or MRR, our qualitative evaluation process provided strong assurance regarding the system’s reliability and correctness.</p>
+<h2 id="responsible-ai-considerations">Responsible AI Considerations</h2>
+<p>Throughout the project, we actively incorporated responsible AI practices. To mitigate the risk of hallucinations and improve factual consistency, we refined our prompts iteratively using prompt engineering techniques. By crafting clear, specific prompts and constraining model outputs, we significantly reduced hallucinated or incomplete data generation.</p>
+<p>Ethical implications and model safety were also key considerations in tool development. We ensured that the outputs were complete and aligned with intended use cases. Our testing process was designed to identify errors or inconsistencies that could lead to invalid outputs.</p>
+<h2 id="findings-and-insights">Findings and Insights</h2>
+<p>Through the implementation of the GenAI Data Engineered Agent system, several key findings emerged that highlight both the potential and current limitations of applying LLM-based multi-agent frameworks to complex data engineering workflows. Overall, the project successfully demonstrated that file-type detection, schema inference, and data validation could be largely automated across a variety of formats, both synthetic and real-world. </p>
+<p>However, several unexpected challenges surfaced. While attempting to include functionalities for Avro files, handling this data proved particularly difficult. Unlike formats like CSV or JSON, Avro is a binary format requiring schema information to interpret correctly. Schema inference for Avro files could not rely on inspecting the raw file contents directly; specialized decoding steps were necessary before LLMs could reason about structure. Even with adjustments, occasional decoding errors or ambiguities in Avro schemas continued to pose challenges. This would be a good addition to explore in the future.</p>
+<p>Evaluation presented another notable difficulty. Although many unit tests and validation rules were built to check for schema and data consistency, evaluating the quality of agent outputs was not always straightforward. We had to manually look through the generated and stored data for quality assessments. </p>
+<p>Scalability challenges also emerged when applying the system to larger, real-world datasets. Processing large often strained LLM limits, resulting in errors, truncated analyses, or incomplete schema extractions. To manage these issues, data could be processed in smaller chunks, and prompt engineering could be used for compressing relevant schema information before sending it to the models. 
+Overall, these findings validate the promise of LLM-driven multi-agent systems for automating large portions of the data engineering lifecycle but also reveal to us areas where further sophistication is necessary for full production-grade deployment.</p>
+<h2 id="demo-and-visuals">Demo and Visuals</h2>
+<p><a href="https://drive.google.com/file/d/1ep8h2n3ZlRr4QEjaiMY8P4xUL_3LmPad/view?usp=sharing">demo</a></p>
+<h4 id="examples-of-generated-data">Examples of Generated Data</h4>
+<p><strong>schema.json</strong></p>
+<p><img alt="schema.json" src="schema.json.png" /></p>
+<p><strong>date_pie_chart.png</strong></p>
+<p><img alt="date_pie_chart.png" src="date_pie_chart.png" /></p>
+<p><strong>descriptive_stats.pdf</strong></p>
+<p><img alt="descriptive_stats.pdf" src="descriptive_stats.pdf.png" /></p>
+<h2 id="conclusion-and-future-work">Conclusion and Future Work</h2>
+<p>This project demonstrated the value of leveraging LLM-based multi-agent systems to automate key stages of the data engineering workflow, including file-type detection, schema inference, and data validation across a variety of structured and semi-structured formats. By carefully designing specialized agents and layering traditional programming with LLM reasoning, the system successfully processed both synthetic and real-world datasets with a high degree of autonomy on diverse formats such as CSV, JSON, XML, and YAML.</p>
+<p>The impact of this system is significant: it shows that complex, labor-intensive data wrangling tasks can be automated at scale with minimal human intervention. Moreover, the modular agent-based design proved flexible, allowing the system to adapt to new file types and validation rules without major re-engineering.</p>
+<p>However, several limitations remain in the current implementation. Challenges with binary formats such as Avro, difficulties in evaluating the quality of schema inferences, and scalability constraints when handling very large, deeply nested datasets highlighted important areas for further enhancement. While processing small to moderately-sized datasets worked well, real-world enterprise-scale applications will require more sophisticated streaming, chunking, and model orchestration strategies to fully overcome context window limitations and system bottlenecks.</p>
+<p>Future improvements could include integrating specialized parsers for binary formats at the ingestion layer, developing more advanced and automated evaluation frameworks that rely less on human oversight. Additionally, expanding the system’s capabilities to not only infer schemas but also suggest optimal normalization, partitioning strategies, and storage recommendations could turn this framework into a more holistic data engineering assistant.</p>
+<h2 id="references">References</h2>
+<p><a href="https://python.langchain.com/v0.1/docs/get_started/introduction">https://python.langchain.com/v0.1/docs/get_started/introduction</a></p>
+<p><a href="https://docs.pydantic.dev/latest/concepts/models/">https://docs.pydantic.dev/latest/concepts/models/</a></p>
+<p><a href="https://langchain-ai.github.io/langgraph/tutorials/introduction/">https://langchain-ai.github.io/langgraph/tutorials/introduction/</a></p>
+<p><a href="https://huyenchip.com//2025/01/07/agents.html">https://huyenchip.com//2025/01/07/agents.html</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
